@@ -1,0 +1,20 @@
+<%= form_with(model: [movie, @review], local: true) do |form| %>
+  <div class="col-sm-3">
+    <%= form.label :content %>
+    <%= form.text_area :content, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :rating, class: 'form-label' %>
+    <div class="star-rating">
+      <% (1..5).each do |rating| %>
+        <input type="radio" id="rating<%= rating %>" name="review[rating]" value="<%= rating %>" />
+        <label for="rating<%= rating %>" title="<%= rating %> stars"></label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-sm-3 mt-2">
+    <%= form.submit "Submit Review", class: 'btn btn-primary' %>
+  </div>
+<% end %>
