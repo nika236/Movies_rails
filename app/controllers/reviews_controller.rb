@@ -1,14 +1,9 @@
 class ReviewsController < ApplicationController
-  before_action :set_review ,only:[:show, :new, :create, :update]
-  before_action :set_movie , only: [:create, :new]
-
-
-
-
+  before_action :set_review ,only:[:show, :update]
+  before_action :set_movie , only: [:update, :create]
 
   def show
   end
-
 
 
   def create
@@ -16,9 +11,9 @@ class ReviewsController < ApplicationController
     @review.user = current_user
     if @review.save
       flash[:notice] = "Your Comment Published"
-      redirect_to @review.movie
+      redirect_to @movie
     else
-      render 'new', status: :unprocessable_entity
+      render 'movies/show', status: :unprocessable_entity
     end
   end
 
@@ -44,7 +39,7 @@ class ReviewsController < ApplicationController
     @review = Review.find_by(id: params[:id])
 
     unless @review
-      flash[:notice] = "Record Not Found"
+      flash[:alert] = "Review Not Found"
       redirect_to movies_path
     end
   end
@@ -53,13 +48,13 @@ class ReviewsController < ApplicationController
     @movie = Movie.find_by(id: params[:movie_id])
 
     unless @movie
-      flash[:notice] = "Record Not Found"
+      flash[:alert] = "Movie Not Found"
       redirect_to movies_path
     end
   end
 
   def review_params
-    params.require(:review).permit(:context, :rating,:movie_id)
+    params.require(:review).permit(:context, :rating,:movie_id, :user_id)
   end
 
 

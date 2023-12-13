@@ -1,0 +1,8 @@
+<div class="card mt-4 foo" style="margin-left: 1rem">
+  <div class="card-body">
+    <h5 class="card-title">Rating: <%= review.rating %></h5>
+    <p class="card-text">User: <%= review.user.username %></p>
+    <p class="card-text">Comment: <%= review.context %></p>
+    <p class="card-text"><small class="text-muted">Submitted on <%= review.created_at.strftime('%B %e, %Y') if review.created_at.present? %></small></p>
+  </div>
+</div>

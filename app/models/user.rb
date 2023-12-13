@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   enum role: [:user,:admin]
+  has_many :reviews, dependent: :destroy
   after_initialize :set_role, if: :new_record?
 
   def set_role
